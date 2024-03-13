@@ -5,7 +5,7 @@ const Home = () => {
 
   return (
     <div>
-      Home
+      {t("homepage")}
       <p>{t("today-date", { date: new Date() })}</p>
     </div>
   );

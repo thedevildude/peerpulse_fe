@@ -1,3 +1,4 @@
+import { LanguageModeToggle } from "@/components/language-mode-toggle";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -41,7 +42,7 @@ const AuthPageLayout = ({
         <p className="font-bold text-white">{t("pulse")}</p>
       </div>
       <div className="flex flex-col bg-white">
-        <div className="flex justify-end px-5 py-2 md:px-10 md:py-5">
+        <div className="flex justify-end gap-2 px-5 py-2 md:px-10 md:py-5">
           <Button
             variant="ghost"
             onClick={() => navigate(alternateRoute)}
@@ -49,6 +50,7 @@ const AuthPageLayout = ({
           >
             {alternateRouteText}
           </Button>
+          <LanguageModeToggle />
         </div>
         <div className="flex h-full w-full flex-col items-center justify-center gap-5">
           <div className="px-5 text-center">

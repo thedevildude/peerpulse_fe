@@ -16,6 +16,7 @@
     "enter-credential-access-account": "Enter your credentials to access your account",
     "email": "Email",
     "password": "Password",
-    "username": "Username"
+    "username": "Username",
+    "homepage": "Homepage"
   }
 }
