@@ -26,7 +26,7 @@ const SignIn = () => {
 
   return (
     <AuthPageLayout
-      title="Welcome back!"
+      title={t("welcome-back")}
       subTitle="Enter your credentials to access your account"
       alternateRoute="/sign-up"
       alternateRouteText={t("sign-up")}

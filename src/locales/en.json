@@ -4,6 +4,12 @@
     "sign-out": "Sign out",
     "sign-up": "Sign up",
     "peer": "Peer",
-    "pulse": "Pulse"
+    "pulse": "Pulse",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "toggle-theme": "Toggle theme",
+    "welcome-back": "Welcome back",
+    "welcome-to-peer-pulse": "Welcome to Peer Pulse"
   }
 }

@@ -4,6 +4,12 @@
     "sign-out": "साइन आउट करें",
     "sign-up": "साइन अप करें",
     "peer": "पीयर",
-    "pulse": "पल्स"
+    "pulse": "पल्स",
+    "light": "रोशनी",
+    "dark": "अंधेरा",
+    "system": "सिस्टम",
+    "toggle-theme": "थीम बदले",
+    "welcome-back": "वापसी पर स्वागत है",
+    "welcome-to-peer-pulse": "पीयर पल्स में आपका स्वागत है"
   }
 }

@@ -28,7 +28,7 @@ const SignUp = () => {
 
   return (
     <AuthPageLayout
-      title="Welcome to Peer Pulse!"
+      title={t("welcome-to-peer-pulse")}
       subTitle="Enter your credentials to create an account"
       alternateRoute="/sign-in"
       alternateRouteText={t("sign-in")}
