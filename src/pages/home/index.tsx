@@ -7,6 +7,7 @@ const Home = () => {
     <div>
       {t("homepage")}
       <p>{t("today-date", { date: new Date() })}</p>
+      <p>{t("right-now", { time: new Date() })}</p>
     </div>
   );
 };

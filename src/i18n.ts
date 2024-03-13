@@ -24,8 +24,9 @@ i18n
       format: (value, format, lng) => {
         const locale = locales[lng as keyof typeof locales];
         if (isDate(value)) {
-          if (format === "short") return formatDate(value, "P", { locale });
-          if (format === "long") return formatDate(value, "PPPP", { locale });
+          if (format === "shortDate") return formatDate(value, "P", { locale });
+          if (format === "longDate")
+            return formatDate(value, "PPPP", { locale });
           if (format === "relative")
             return formatRelative(value, new Date(), { locale });
           if (format === "ago")
@@ -33,7 +34,8 @@ i18n
               locale,
               addSuffix: true,
             });
-
+          if (format === "shortTime") return formatDate(value, "p", { locale });
+          if (format === "longTime") return formatDate(value, "pp", { locale });
           return formatDate(value, format || "", { locale });
         }
         return value;
@@ -43,27 +45,11 @@ i18n
       enUS: {
         translation: {
           ...enJSON.translation,
-          dateFormats: {
-            short: "MM/dd/yyyy",
-            long: "MMMM d, yyyy",
-          },
-          timeFormats: {
-            short: "HH:mm",
-            long: "HH:mm:ss",
-          },
         },
       },
       hi: {
         translation: {
           ...hiJSON.translation,
-          dateFormats: {
-            short: "dd/MM/yyyy",
-            long: "d MMMM yyyy",
-          },
-          timeFormats: {
-            short: "HH:mm",
-            long: "HH:mm:ss",
-          },
         },
       },
     },
