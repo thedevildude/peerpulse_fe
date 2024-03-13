@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 interface AuthPageLayoutProps {
@@ -25,6 +26,7 @@ const AuthPageLayout = ({
   clearError,
 }: AuthPageLayoutProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <div className="mx-auto grid grid-cols-1 bg-gray-950 md:h-screen md:grid-cols-2">
       {error && (
@@ -35,8 +37,8 @@ const AuthPageLayout = ({
       )}
       {isLoading && <div>Loading...</div>}
       <div className="flex px-5 py-3 text-4xl font-bold text-white md:px-10 md:py-5">
-        <p className="font-bold text-blue-600">Peer</p>
-        <p className="font-bold text-white">Pulse</p>
+        <p className="font-bold text-blue-600">{t("peer")}</p>
+        <p className="font-bold text-white">{t("pulse")}</p>
       </div>
       <div className="flex flex-col bg-white">
         <div className="flex justify-end px-5 py-2 md:px-10 md:py-5">

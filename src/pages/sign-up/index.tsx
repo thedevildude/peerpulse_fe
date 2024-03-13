@@ -29,7 +29,7 @@ const SignUp = () => {
   return (
     <AuthPageLayout
       title={t("welcome-to-peer-pulse")}
-      subTitle="Enter your credentials to create an account"
+      subTitle={t("enter-credential-create-account")}
       alternateRoute="/sign-in"
       alternateRouteText={t("sign-in")}
       bgImage={StudentSignup}
@@ -48,7 +48,7 @@ const SignUp = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t("email")}</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Please enter your college email"
@@ -64,7 +64,7 @@ const SignUp = () => {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>{t("username")}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -77,7 +77,7 @@ const SignUp = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t("password")}</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
@@ -85,7 +85,7 @@ const SignUp = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit">Sign Up</Button>
+            <Button type="submit">{t("sign-up")}</Button>
           </form>
         </Form>
       </div>

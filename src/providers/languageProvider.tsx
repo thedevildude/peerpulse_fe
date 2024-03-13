@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 export enum language {
-  en = "en",
+  enUS = "enUS",
   hi = "hi",
 }
 
@@ -16,7 +16,7 @@ type languageProviderState = {
 };
 
 const initialState: languageProviderState = {
-  language: language.en,
+  language: language.enUS,
   setLanguage: () => null,
 };
 

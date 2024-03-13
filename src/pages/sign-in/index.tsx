@@ -27,7 +27,7 @@ const SignIn = () => {
   return (
     <AuthPageLayout
       title={t("welcome-back")}
-      subTitle="Enter your credentials to access your account"
+      subTitle={t("enter-credential-access-account")}
       alternateRoute="/sign-up"
       alternateRouteText={t("sign-up")}
       isLoading={false}
@@ -45,7 +45,7 @@ const SignIn = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t("email")}</FormLabel>
                   <FormControl>
                     <Input placeholder="abc@iit.edu.in" {...field} />
                   </FormControl>
@@ -58,7 +58,7 @@ const SignIn = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t("password")}</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
@@ -66,7 +66,7 @@ const SignIn = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit">Sign In</Button>
+            <Button type="submit">{t("sign-in")}</Button>
           </form>
         </Form>
       </div>

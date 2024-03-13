@@ -22,7 +22,7 @@ export function LanguageModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setLanguage(language.en)}>
+        <DropdownMenuItem onClick={() => setLanguage(language.enUS)}>
           English
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setLanguage(language.hi)}>
