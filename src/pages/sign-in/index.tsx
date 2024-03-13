@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { t } from "i18next";
 
 const SignIn = () => {
   const form = useForm<z.infer<typeof loginFormSchema>>({
@@ -28,7 +29,7 @@ const SignIn = () => {
       title="Welcome back!"
       subTitle="Enter your credentials to access your account"
       alternateRoute="/sign-up"
-      alternateRouteText="Sign up"
+      alternateRouteText={t("sign-up")}
       isLoading={false}
       error=""
       clearError={() => {}}

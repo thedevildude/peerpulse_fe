@@ -12,7 +12,7 @@ type UseRequestResult<T> = {
 export const useRequest = <T,>(
   url: string,
   method: "GET" | "POST" | "PUT" | "DELETE",
-  body: any
+  body: never,
 ): UseRequestResult<T> => {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<Error | null>(null);
@@ -29,7 +29,7 @@ export const useRequest = <T,>(
         });
         setData(response.data);
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       } finally {
         setLoading(false);
       }

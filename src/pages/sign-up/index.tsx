@@ -13,7 +13,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import StudentSignup from "@/assets/students-signup.svg"
+import StudentSignup from "@/assets/students-signup.svg";
+import { t } from "i18next";
 
 const SignUp = () => {
   const form = useForm<z.infer<typeof signupFormSchema>>({
@@ -30,7 +31,7 @@ const SignUp = () => {
       title="Welcome to Peer Pulse!"
       subTitle="Enter your credentials to create an account"
       alternateRoute="/sign-in"
-      alternateRouteText="Sign in"
+      alternateRouteText={t("sign-in")}
       bgImage={StudentSignup}
       isLoading={false}
       error=""
