@@ -1,3 +1,5 @@
+import { UserModel } from "@/components/users/models";
+
 /**
  * A fake function that returns an empty object casted to type T
  * @returns Empty object as type T
@@ -25,16 +27,16 @@ const routes = {
     TRes: Type<JwtTokenObtainPair>(),
     TBody: Type<LoginCredentials>(),
   },
-  token_refresh: {
+  tokenRefresh: {
     path: "/api/v1/auth/refresh-tokens",
     method: "POST",
     TRes: Type<JwtTokenObtainPair>(),
     TBody: Type<{ refresh: JwtTokenObtainPair["refresh"] }>(),
   },
   currentUser: {
-    path: "/api/v1/auth/current-user",
+    path: "/api/v1/user/current-user",
     method: "GET",
-    TRes: Type<{ id: number; email: string }>(),
+    TRes: Type<UserModel>(),
   },
 };
 

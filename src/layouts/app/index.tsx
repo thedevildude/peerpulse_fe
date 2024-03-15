@@ -1,16 +1,19 @@
 import { Outlet } from "react-router-dom";
 import AppHeader from "./AppHeader";
+import { AuthProvider } from "@/providers/authProvider";
 
 const AppLayout = () => {
   return (
-    <div>
-      <AppHeader />
-      <main>
-        <div className="mx-auto max-w-8xl py-10 sm:px-6 lg:px-8">
-          <Outlet />
-        </div>
-      </main>
-    </div>
+    <AuthProvider>
+      <div>
+        <AppHeader />
+        <main>
+          <div className="max-w-8xl mx-auto py-10 sm:px-6 lg:px-8">
+            <Outlet />
+          </div>
+        </main>
+      </div>
+    </AuthProvider>
   );
 };
 

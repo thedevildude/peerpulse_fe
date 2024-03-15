@@ -15,6 +15,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import StudentSignup from "@/assets/students-signup.svg";
 import { t } from "i18next";
+import { useLanguage } from "@/providers/languageProvider";
 
 const SignUp = () => {
   const form = useForm<z.infer<typeof signupFormSchema>>({
@@ -25,9 +26,11 @@ const SignUp = () => {
       password: "",
     },
   });
+  const { language } = useLanguage();
 
   return (
     <AuthPageLayout
+      key={language}
       title={t("welcome-to-peer-pulse")}
       subTitle={t("enter-credential-create-account")}
       alternateRoute="/sign-in"
