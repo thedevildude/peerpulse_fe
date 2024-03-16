@@ -31,15 +31,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const checkAccessTokenValidity = async (
       accessToken: string,
     ): Promise<boolean> => {
-      const res = await axios.get(API_ENDPOINT + routes.currentUser.path, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      if (res.status !== 200) {
+      try {
+        await axios.get(API_ENDPOINT + routes.currentUser.path, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        return true;
+      } catch (error) {
         return false;
       }
-      return true;
     };
 
     const fetchData = async () => {
@@ -93,23 +94,24 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const refreshAccessToken = async (refreshToken: string) => {
-    const res = await axios.post(API_ENDPOINT + routes.tokenRefresh.path, {
-      refreshToken,
-    });
-    if (res.status !== 200) {
-      // Refresh token expired, navigate to the sign-in page
+    try {
+      const res = await axios.post(API_ENDPOINT + routes.tokenRefresh.path, {
+        refreshToken,
+      });
+      localStorage.setItem(
+        LocalStorageKeys.accessToken,
+        res.data.tokens.access,
+      );
+      localStorage.setItem(
+        LocalStorageKeys.refreshToken,
+        res.data.tokens.refresh,
+      );
+
+      setIsAuthenticated(true);
+      setUser(res.data);
+    } catch (error) {
       navigate("/sign-in");
-      return;
     }
-
-    localStorage.setItem(LocalStorageKeys.accessToken, res.data.tokens.access);
-    localStorage.setItem(
-      LocalStorageKeys.refreshToken,
-      res.data.tokens.refresh,
-    );
-
-    setIsAuthenticated(true);
-    setUser(res.data);
   };
 
   return (

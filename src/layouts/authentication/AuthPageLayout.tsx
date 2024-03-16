@@ -1,4 +1,4 @@
-import { LanguageModeToggle } from "@/components/language-mode-toggle";
+import { LanguageModeToggle } from "@/components/header/language-mode-toggle";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";

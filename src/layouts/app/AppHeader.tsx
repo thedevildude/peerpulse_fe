@@ -1,6 +1,6 @@
-import { LanguageModeToggle } from "@/components/language-mode-toggle";
-import { ModeToggle } from "@/components/mode-toggle";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { LanguageModeToggle } from "@/components/header/language-mode-toggle";
+import { ModeToggle } from "@/components/header/mode-toggle";
+import { UserSettingsDropdown } from "@/components/header/user-settings-dropdown";
 import { useTranslation } from "react-i18next";
 
 const AppHeader = () => {
@@ -15,10 +15,7 @@ const AppHeader = () => {
       <div className="flex-none">User</div>
       <LanguageModeToggle />
       <ModeToggle />
-      <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+      <UserSettingsDropdown />
     </nav>
   );
 };
