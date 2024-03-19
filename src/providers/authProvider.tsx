@@ -32,11 +32,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       accessToken: string,
     ): Promise<boolean> => {
       try {
-        await axios.get(API_ENDPOINT + routes.currentUser.path, {
+        const res = await axios.get(API_ENDPOINT + routes.currentUser.path, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
+        setUser(res.data);
         return true;
       } catch (error) {
         return false;

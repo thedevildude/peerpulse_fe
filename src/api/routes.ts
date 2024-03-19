@@ -31,12 +31,17 @@ const routes = {
     path: "/api/v1/auth/refresh-tokens",
     method: "POST",
     TRes: Type<JwtTokenObtainPair>(),
-    TBody: Type<{ refresh: JwtTokenObtainPair["refresh"] }>(),
+    TBody: Type<{ refreshToken: JwtTokenObtainPair["refresh"] }>(),
   },
   currentUser: {
     path: "/api/v1/user/current-user",
     method: "GET",
     TRes: Type<UserModel>(),
+  },
+  sendVerificationEmail: {
+    path: "/api/v1/auth/send-verification-email",
+    method: "POST",
+    TRes: Type<string>(),
   },
 };
 
