@@ -6,14 +6,10 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export type AuthProviderState = {
-  isAuthenticated: boolean;
-  setIsAuthenticated: (isAuthenticated: boolean) => void;
   user: UserModel | null;
 };
 
 const initialState: AuthProviderState = {
-  isAuthenticated: false,
-  setIsAuthenticated: () => null,
   user: null,
 };
 
@@ -23,7 +19,6 @@ export const AuthProviderContext =
 export const useAuthProvider = () => useContext(AuthProviderContext);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<UserModel | null>(null);
   const navigate = useNavigate();
 
@@ -50,10 +45,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (accessToken) {
         const isValid = await checkAccessTokenValidity(accessToken);
         if (isValid) {
-          setIsAuthenticated(true);
+          return;
         } else if (refreshToken) {
           // Access token expired, try refreshing it using the refresh token
-          refreshAccessToken(refreshToken);
+          await refreshBothTokens(refreshToken);
+          await checkAccessTokenValidity(
+            localStorage.getItem(LocalStorageKeys.accessToken) as string,
+          );
         } else {
           // No refresh token available, navigate to the sign-in page
           navigate("/sign-in");
@@ -66,7 +64,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     fetchData();
 
-    // Check access token validity every 5 minutes
+    // Check access token validity every 1 minute
     const intervalId = setInterval(
       async () => {
         const accessToken = localStorage.getItem(LocalStorageKeys.accessToken);
@@ -78,7 +76,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
               LocalStorageKeys.refreshToken,
             );
             if (refreshToken) {
-              refreshAccessToken(refreshToken);
+              await refreshBothTokens(refreshToken);
+              await checkAccessTokenValidity(
+                localStorage.getItem(LocalStorageKeys.accessToken) as string,
+              );
             } else {
               // No refresh token available, navigate to the sign-in page
               navigate("/sign-in");
@@ -86,29 +87,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           }
         }
       },
-      5 * 60 * 1000,
-    ); // 5 minutes
+      1 * 60 * 1000,
+    ); // 1 minutes
 
     return () => {
       clearInterval(intervalId);
     };
   }, []);
 
-  const refreshAccessToken = async (refreshToken: string) => {
+  const refreshBothTokens = async (refreshToken: string) => {
     try {
       const res = await axios.post(API_ENDPOINT + routes.tokenRefresh.path, {
         refreshToken,
       });
-      localStorage.setItem(
-        LocalStorageKeys.accessToken,
-        res.data.tokens.access,
-      );
+      localStorage.setItem(LocalStorageKeys.accessToken, res.data.access.token);
       localStorage.setItem(
         LocalStorageKeys.refreshToken,
-        res.data.tokens.refresh,
+        res.data.refresh.token,
       );
 
-      setIsAuthenticated(true);
       setUser(res.data);
     } catch (error) {
       navigate("/sign-in");
@@ -116,9 +113,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthProviderContext.Provider
-      value={{ isAuthenticated, setIsAuthenticated, user }}
-    >
+    <AuthProviderContext.Provider value={{ user }}>
       {children}
     </AuthProviderContext.Provider>
   );

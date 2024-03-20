@@ -43,6 +43,12 @@ const routes = {
     method: "POST",
     TRes: Type<string>(),
   },
+  verifyEmail: {
+    path: "/api/v1/auth/verify-email",
+    method: "POST",
+    TRes: Type<string>(),
+    TBody: Type<{ token: string }>(),
+  },
 };
 
 export default routes;

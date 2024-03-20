@@ -5,14 +5,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useTranslation } from "react-i18next";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { User } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function UserSettingsDropdown() {
-  const { t } = useTranslation();
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
