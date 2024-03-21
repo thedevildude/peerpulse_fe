@@ -1,3 +1,4 @@
+import { checkAccessTokenValidity } from "@/api/common";
 import routes from "@/api/routes";
 import { UserModel } from "@/components/users/models";
 import { API_ENDPOINT, LocalStorageKeys } from "@/config/constants";
@@ -23,27 +24,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAccessTokenValidity = async (
-      accessToken: string,
-    ): Promise<boolean> => {
-      try {
-        const res = await axios.get(API_ENDPOINT + routes.currentUser.path, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        setUser(res.data);
-        return true;
-      } catch (error) {
-        return false;
-      }
-    };
-
     const fetchData = async () => {
       const accessToken = localStorage.getItem(LocalStorageKeys.accessToken);
       const refreshToken = localStorage.getItem(LocalStorageKeys.refreshToken);
       if (accessToken) {
-        const isValid = await checkAccessTokenValidity(accessToken);
+        const isValid = await checkAccessTokenValidity(accessToken, setUser);
         if (isValid) {
           return;
         } else if (refreshToken) {
@@ -51,6 +36,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           await refreshBothTokens(refreshToken);
           await checkAccessTokenValidity(
             localStorage.getItem(LocalStorageKeys.accessToken) as string,
+            setUser,
           );
         } else {
           // No refresh token available, navigate to the sign-in page
@@ -69,7 +55,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       async () => {
         const accessToken = localStorage.getItem(LocalStorageKeys.accessToken);
         if (accessToken) {
-          const isValid = await checkAccessTokenValidity(accessToken);
+          const isValid = await checkAccessTokenValidity(accessToken, setUser);
           if (!isValid) {
             // Access token expired, try refreshing it using the refresh token
             const refreshToken = localStorage.getItem(
@@ -79,6 +65,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
               await refreshBothTokens(refreshToken);
               await checkAccessTokenValidity(
                 localStorage.getItem(LocalStorageKeys.accessToken) as string,
+                setUser,
               );
             } else {
               // No refresh token available, navigate to the sign-in page

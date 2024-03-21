@@ -1,5 +1,8 @@
+import { checkAccessTokenValidity } from "@/api/common";
 import { LanguageModeToggle } from "@/components/header/language-mode-toggle";
 import { Button } from "@/components/ui/button";
+import { LocalStorageKeys } from "@/config/constants";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -28,6 +31,18 @@ const AuthPageLayout = ({
 }: AuthPageLayoutProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem(LocalStorageKeys.accessToken);
+
+    const checkLoggedIn = async () => {
+      if (accessToken) {
+        const isValid = await checkAccessTokenValidity(accessToken);
+        if (isValid) navigate("/");
+      }
+    };
+    checkLoggedIn();
+  }, [navigate]);
   return (
     <div className="mx-auto grid grid-cols-1 bg-gray-950 md:h-screen md:grid-cols-2">
       {error && (
