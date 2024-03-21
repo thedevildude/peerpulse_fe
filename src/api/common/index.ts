@@ -14,7 +14,7 @@ export const checkAccessTokenValidity = async (
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    if (setUser) setUser(res.data);
+    if (setUser && res) setUser(res.data);
     return true;
   } catch (error) {
     return false;

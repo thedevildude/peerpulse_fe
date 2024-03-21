@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { User } from "lucide-react";
+import { LogOut, Settings2, User } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function UserSettingsDropdown() {
@@ -28,8 +28,18 @@ export function UserSettingsDropdown() {
             <p>Profile</p>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>Preferences</DropdownMenuItem>
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link to="/preferences" className="flex flex-col items-center">
+            <Settings2 className="h-8 w-8" />
+            <p>Preferences</p>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link to="/logout" className="flex flex-col items-center">
+            <LogOut className="h-8 w-8" />
+            <p>Logout</p>
+          </Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
