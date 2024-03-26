@@ -1,4 +1,6 @@
 import { UserModel } from "@/components/users/models";
+import { pollFormSchema, postFormSchema } from "@/validation/post.validation";
+import { z } from "zod";
 
 /**
  * A fake function that returns an empty object casted to type T
@@ -48,6 +50,18 @@ const routes = {
     method: "POST",
     TRes: Type<string>(),
     TBody: Type<{ token: string }>(),
+  },
+  createPost: {
+    path: "/api/v1/post/create-post",
+    method: "POST",
+    TRes: Type<string>(),
+    TBody: Type<z.infer<typeof postFormSchema>>(),
+  },
+  createPoll: {
+    path: "/api/v1/post/create-poll",
+    method: "POST",
+    TRes: Type<string>(),
+    TBody: Type<z.infer<typeof pollFormSchema>>(),
   },
 };
 
