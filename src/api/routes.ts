@@ -63,6 +63,13 @@ const routes = {
     TRes: Type<string>(),
     TBody: Type<z.infer<typeof pollFormSchema>>(),
   },
+  queryPosts: {
+    path: "/api/v1/post",
+    method: "GET",
+    TRes:
+      Type<z.infer<typeof postFormSchema>[]>() ||
+      Type<z.infer<typeof pollFormSchema>[]>(),
+  },
 };
 
 export default routes;
