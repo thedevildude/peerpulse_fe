@@ -7,7 +7,7 @@ export enum PostType {
 
 export type PostModel = {
   id: number;
-  authorId: Pick<UserModel, "id">;
+  authorId: UserModel["id"];
   PostType: PostType.Post;
   title?: string;
   content: string;
@@ -18,7 +18,7 @@ export type PostModel = {
 
 export type PollModel = {
   id: number;
-  authorId: Pick<UserModel, "id">;
+  authorId: UserModel["id"];
   PostType: PostType.Poll;
   title?: string;
   content: string;
