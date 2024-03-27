@@ -1,22 +1,22 @@
 import routes from "@/api/routes";
+import { PostModel, PollModel } from "@/components/posts/models";
 import { API_ENDPOINT, LocalStorageKeys } from "@/config/constants";
-import { pollFormSchema } from "@/validation/post.validation";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { z } from "zod";
+import PostCard from "./PostCard";
+import PollCard from "./PollCard";
 
 const Posts = () => {
-  const [posts, setPosts] = useState<z.infer<typeof pollFormSchema>[]>([]);
+  const [posts, setPosts] = useState<(PostModel | PollModel)[]>([]);
   const fetchPosts = async () => {
     const res = await axios.get(API_ENDPOINT + routes.queryPosts.path, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem(LocalStorageKeys.accessToken)}`,
       },
       params: {
-        limit: 2,
+        limit: 5,
       },
     });
-    console.log(res.data);
     setPosts(res.data.data);
   };
 
@@ -30,8 +30,11 @@ const Posts = () => {
       {posts &&
         posts.map((post, index) => (
           <div key={index} className="bg-gray-200">
-            <p>{post.title}</p>
-            <p>{post.content}</p>
+            {post.PostType === "POST" ? (
+              <PostCard {...post} />
+            ) : (
+              <PollCard {...post} />
+            )}
           </div>
         ))}
     </div>

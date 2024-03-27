@@ -63,6 +63,12 @@ const routes = {
     TRes: Type<string>(),
     TBody: Type<z.infer<typeof pollFormSchema>>(),
   },
+  uploadMedia: {
+    path: "/api/v1/post/upload-media",
+    method: "POST",
+    TRes: Type<string>(),
+    TBody: Type<{ media: File }>(),
+  },
   queryPosts: {
     path: "/api/v1/post",
     method: "GET",

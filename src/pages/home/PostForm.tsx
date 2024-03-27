@@ -22,17 +22,39 @@ const PostForm = () => {
     defaultValues: {
       title: "",
       content: "",
-      media: "",
+      media: undefined,
     },
   });
 
+  const uploadImage = async (file: File) => {
+    try {
+      const res = await axios.post(
+        API_ENDPOINT + routes.uploadMedia.path,
+        file,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              LocalStorageKeys.accessToken,
+            )}`,
+            "Content-Type": `image/${file.type.split("/")[1]}`,
+          },
+        },
+      );
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const createPost = async (data: z.infer<typeof postFormSchema>) => {
-    const res = await axios.post(API_ENDPOINT + routes.createPost.path, data, {
+    if (data.media) {
+      data.media = await uploadImage(data.media);
+    }
+    await axios.post(API_ENDPOINT + routes.createPost.path, data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem(LocalStorageKeys.accessToken)}`,
       },
     });
-    console.log(res.data);
   };
   return (
     <div>
@@ -48,6 +70,26 @@ const PostForm = () => {
               <FormItem>
                 <FormControl>
                   <Input placeholder="Something Awesome happened" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={postForm.control}
+            name="media"
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            render={({ field: { value, onChange, ...fieldProps } }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    type="file"
+                    accept="image/jpeg, image/jpg, image/png"
+                    onChange={(e) => {
+                      onChange(e.target.files?.[0]);
+                    }}
+                    {...fieldProps}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
