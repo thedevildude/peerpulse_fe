@@ -40,7 +40,7 @@ const PostForm = () => {
           },
         },
       );
-      return res.data;
+      return res.data.mediaUrl;
     } catch (err) {
       console.error(err);
     }

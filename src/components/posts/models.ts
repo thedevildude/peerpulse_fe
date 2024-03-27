@@ -11,7 +11,7 @@ export type PostModel = {
   PostType: PostType.Post;
   title?: string;
   content: string;
-  createdAt: Date;
+  createdAt: string;
   isEdited: boolean;
   media?: string;
 };
@@ -22,7 +22,7 @@ export type PollModel = {
   PostType: PostType.Poll;
   title?: string;
   content: string;
-  createdAt: Date;
+  createdAt: string;
   media?: string;
   isEdited: boolean;
   options: Option[];
@@ -32,4 +32,12 @@ export type Option = {
   id: number;
   content: string;
   media?: string;
+};
+
+export type PostAssignedModel = PostModel & {
+  Author: UserModel;
+};
+
+export type PollAssignedModel = PollModel & {
+  Author: UserModel;
 };
