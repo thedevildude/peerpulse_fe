@@ -1,3 +1,4 @@
+import { CommentModel } from "../comments/models";
 import { UserModel } from "../users/models";
 
 export enum PostType {
@@ -29,21 +30,6 @@ export type LikesModel = {
   userId: UserModel["id"];
   createdAt: string;
   updatedAt: string;
-};
-
-export type CommentModel = {
-  id: number;
-  postId: PostModel["id"];
-  userId: UserModel["id"];
-  content: string;
-  isEdited: boolean;
-  isDeleted: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type CommentUserAssignedModel = CommentModel & {
-  User: UserModel;
 };
 
 export type Option = {

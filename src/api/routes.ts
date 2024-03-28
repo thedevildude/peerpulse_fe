@@ -1,4 +1,4 @@
-import { CommentUserAssignedModel } from "@/components/posts/models";
+import { CommentUserAssignedModel } from "@/components/comments/models";
 import { UserModel } from "@/components/users/models";
 import { pollFormSchema, postFormSchema } from "@/validation/post.validation";
 import { z } from "zod";
