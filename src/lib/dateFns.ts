@@ -1,16 +1,12 @@
 import { formatDistanceToNow, format } from "date-fns";
 
-export function getRelativeTimeOrFormattedDateTime(dateString: string): string {
+export function getRelativeTimeOrFormattedDateTime(dateString: string): {
+  relativeDateTime: string;
+  formattedDateTime: string;
+} {
   const date = new Date(dateString);
-  const today = new Date();
-  const isToday =
-    date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear();
+  const formattedDateTime = format(date, "yyyy-MM-dd HH:mm:ss");
+  const relativeDateTime = formatDistanceToNow(date, { addSuffix: true });
 
-  if (isToday) {
-    return formatDistanceToNow(date, { addSuffix: true });
-  } else {
-    return format(date, "yyyy-MM-dd HH:mm:ss");
-  }
+  return { relativeDateTime, formattedDateTime };
 }

@@ -11,21 +11,35 @@ export type PostModel = {
   PostType: PostType.Post;
   title?: string;
   content: string;
+  likes: LikesModel[];
+  comments: CommentsModel[];
   createdAt: string;
   isEdited: boolean;
   media?: string;
 };
 
-export type PollModel = {
-  id: number;
-  authorId: UserModel["id"];
+export type PollModel = Omit<PostModel, "PostType"> & {
   PostType: PostType.Poll;
-  title?: string;
-  content: string;
-  createdAt: string;
-  media?: string;
-  isEdited: boolean;
   options: Option[];
+};
+
+export type LikesModel = {
+  id: number;
+  postId: PostModel["id"];
+  userId: UserModel["id"];
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CommentsModel = {
+  id: number;
+  postId: PostModel["id"];
+  userId: UserModel["id"];
+  content: string;
+  isEdited: boolean;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type Option = {
