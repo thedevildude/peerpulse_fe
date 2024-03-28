@@ -12,7 +12,7 @@ export type PostModel = {
   title?: string;
   content: string;
   likes: LikesModel[];
-  comments: CommentsModel[];
+  comments: CommentModel[];
   createdAt: string;
   isEdited: boolean;
   media?: string;
@@ -31,7 +31,7 @@ export type LikesModel = {
   updatedAt: string;
 };
 
-export type CommentsModel = {
+export type CommentModel = {
   id: number;
   postId: PostModel["id"];
   userId: UserModel["id"];
@@ -40,6 +40,10 @@ export type CommentsModel = {
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
+};
+
+export type CommentUserAssignedModel = CommentModel & {
+  User: UserModel;
 };
 
 export type Option = {

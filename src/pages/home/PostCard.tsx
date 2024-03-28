@@ -5,6 +5,7 @@ import { getRelativeTimeOrFormattedDateTime } from "@/lib/dateFns";
 import PostSettingsPopover from "./PostSettingsPopover";
 import { Heart, MessageSquare } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import PostComment from "./PostComment";
 
 const PostCard = (post: PostAssignedModel) => {
   const getImageRatio = (media?: string) => {
@@ -31,18 +32,20 @@ const PostCard = (post: PostAssignedModel) => {
   const PostMeta = [
     {
       icon: Heart,
+      name: "likes",
       iconClass: "hover:fill-red-900 dark:hover:fill-red-500",
       count: post.likes.length,
     },
     {
       icon: MessageSquare,
+      name: "comments",
       iconClass: "hover:fill-gray-300 dark:hover:fill-gray-500",
       count: post.comments.length,
     },
   ];
 
   return (
-    <div className="flex w-full flex-col gap-2 rounded-md border border-gray-200 bg-white p-3 shadow-md dark:bg-black">
+    <div className="flex w-full flex-col gap-2 rounded-xl border border-gray-200 bg-white p-3 shadow-md dark:bg-black">
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Avatar>
@@ -66,7 +69,6 @@ const PostCard = (post: PostAssignedModel) => {
           <PostSettingsPopover {...post} />
         </div>
       </div>
-      <Separator />
       <p className="font-bold">{post.title}</p>
       <p>{post.content}</p>
       {post.media && (
@@ -83,13 +85,17 @@ const PostCard = (post: PostAssignedModel) => {
         {PostMeta.map((meta, index) => (
           <div
             key={index}
-            className="flex cursor-pointer items-center gap-2 rounded-md bg-gray-100 p-1 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+            className="flex cursor-pointer items-center gap-2 rounded-md bg-gray-100 p-1 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
           >
-            <meta.icon strokeWidth={0.5} size={18} className={meta.iconClass} />
-            <p className="hover:underline">{meta.count}</p>
+            <meta.icon strokeWidth={0.5} size={24} className={meta.iconClass} />
+            <p className="hover:underline">
+              {meta.count} {meta.name}
+            </p>
           </div>
         ))}
       </div>
+      <Separator className="my-2" />
+      <PostComment {...post} />
     </div>
   );
 };
