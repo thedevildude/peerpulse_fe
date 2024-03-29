@@ -110,6 +110,13 @@ const PostCard = (post: PostAssignedModel) => {
       {comments.map((comment, index) => (
         <CommentCard key={index} {...comment} />
       ))}
+      <div className="flex items-center gap-2">
+        {post._count.comments > 1 && (
+          <p className="cursor-pointer text-sm text-gray-600 hover:underline dark:text-gray-400">
+            View all {post._count.comments} comments
+          </p>
+        )}
+      </div>
     </div>
   );
 };
