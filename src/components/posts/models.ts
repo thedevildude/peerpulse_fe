@@ -1,4 +1,4 @@
-import { CommentModel } from "../comments/models";
+import { CommentUserAssignedModel } from "../comments/models";
 import { UserModel } from "../users/models";
 
 export enum PostType {
@@ -13,7 +13,7 @@ export type PostModel = {
   title?: string;
   content: string;
   likes: LikesModel[];
-  comments: CommentModel[];
+  comments: CommentUserAssignedModel[];
   createdAt: string;
   isEdited: boolean;
   media?: string;

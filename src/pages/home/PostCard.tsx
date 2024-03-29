@@ -6,6 +6,7 @@ import PostSettingsPopover from "./PostSettingsPopover";
 import { Heart, MessageSquare } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import PostComment from "./PostComment";
+import CommentCard from "@/components/comments/CommentCard";
 
 const PostCard = (post: PostAssignedModel) => {
   const getImageRatio = (media?: string) => {
@@ -96,6 +97,7 @@ const PostCard = (post: PostAssignedModel) => {
       </div>
       <Separator className="my-2" />
       <PostComment {...post} />
+      {post.comments.length > 1 && <CommentCard {...post.comments[0]} />}
     </div>
   );
 };
