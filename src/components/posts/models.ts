@@ -40,8 +40,16 @@ export type Option = {
 
 export type PostAssignedModel = PostModel & {
   Author: UserModel;
+  _count: {
+    likes: number;
+    comments: number;
+  };
 };
 
 export type PollAssignedModel = PollModel & {
   Author: UserModel;
+  _count: {
+    likes: number;
+    comments: number;
+  };
 };

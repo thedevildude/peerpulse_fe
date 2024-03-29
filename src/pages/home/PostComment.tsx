@@ -13,8 +13,14 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import routes from "@/api/routes";
 import { API_ENDPOINT, LocalStorageKeys } from "@/config/constants";
+import { CommentUserAssignedModel } from "@/components/comments/models";
 
-const PostComment = (post: PostAssignedModel | PollAssignedModel) => {
+const PostComment = (props: {
+  post: PostAssignedModel | PollAssignedModel;
+  onComment?: (comment: CommentUserAssignedModel) => void;
+}) => {
+  const { post, onComment } = props;
+
   const commentForm = useForm<z.infer<typeof commentFormSchema>>({
     resolver: zodResolver(commentFormSchema),
     defaultValues: {
@@ -36,6 +42,10 @@ const PostComment = (post: PostAssignedModel | PollAssignedModel) => {
           },
         },
       );
+      commentForm.reset();
+      if (onComment) {
+        onComment(res.data as CommentUserAssignedModel);
+      }
       console.log(res.data);
     } catch (error) {
       console.error(error);

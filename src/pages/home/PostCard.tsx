@@ -7,8 +7,13 @@ import { Heart, MessageSquare } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import PostComment from "./PostComment";
 import CommentCard from "@/components/comments/CommentCard";
+import { CommentUserAssignedModel } from "@/components/comments/models";
+import { useState } from "react";
 
 const PostCard = (post: PostAssignedModel) => {
+  const [comments, setComments] = useState<CommentUserAssignedModel[]>(
+    post.comments,
+  );
   const getImageRatio = (media?: string) => {
     if (!media) return;
     const image = new Image();
@@ -35,13 +40,13 @@ const PostCard = (post: PostAssignedModel) => {
       icon: Heart,
       name: "likes",
       iconClass: "hover:fill-red-900 dark:hover:fill-red-500",
-      count: post.likes.length,
+      count: post._count.likes,
     },
     {
       icon: MessageSquare,
       name: "comments",
       iconClass: "hover:fill-gray-300 dark:hover:fill-gray-500",
-      count: post.comments.length,
+      count: post._count.comments,
     },
   ];
 
@@ -96,8 +101,15 @@ const PostCard = (post: PostAssignedModel) => {
         ))}
       </div>
       <Separator className="my-2" />
-      <PostComment {...post} />
-      {post.comments.length > 1 && <CommentCard {...post.comments[0]} />}
+      <PostComment
+        post={post}
+        onComment={(comment: CommentUserAssignedModel) => {
+          setComments((prev) => [comment, ...prev]);
+        }}
+      />
+      {comments.map((comment, index) => (
+        <CommentCard key={index} {...comment} />
+      ))}
     </div>
   );
 };
