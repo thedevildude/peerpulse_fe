@@ -9,6 +9,7 @@ import PostComment from "./PostComment";
 import CommentCard from "@/components/comments/CommentCard";
 import { CommentUserAssignedModel } from "@/components/comments/models";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const PostCard = (post: PostAssignedModel) => {
   const [comments, setComments] = useState<CommentUserAssignedModel[]>(
@@ -75,19 +76,23 @@ const PostCard = (post: PostAssignedModel) => {
           <PostSettingsPopover {...post} />
         </div>
       </div>
-      <p className="font-bold">{post.title}</p>
-      <p>{post.content}</p>
+      <Link to={`/post/${post.id}`} className="flex flex-col gap-2">
+        <p className="font-bold">{post.title}</p>
+        <p>{post.content}</p>
+      </Link>
       {post.media && (
-        <AspectRatio ratio={imageRatio}>
-          <img
-            src={post.media}
-            alt="Post"
-            className="h-full w-full rounded-xl object-cover"
-          />
-        </AspectRatio>
+        <Link to={`/post/${post.id}`}>
+          <AspectRatio ratio={imageRatio}>
+            <img
+              src={post.media}
+              alt="Post"
+              className="h-full w-full rounded-xl object-cover"
+            />
+          </AspectRatio>
+        </Link>
       )}
       <Separator className="my-2" />
-      <div className="flex items-center gap-2">
+      <Link to={`/post/${post.id}`} className="flex items-center gap-2">
         {PostMeta.map((meta, index) => (
           <div
             key={index}
@@ -99,7 +104,7 @@ const PostCard = (post: PostAssignedModel) => {
             </p>
           </div>
         ))}
-      </div>
+      </Link>
       <Separator className="my-2" />
       <PostComment
         post={post}
@@ -112,9 +117,12 @@ const PostCard = (post: PostAssignedModel) => {
       ))}
       <div className="flex items-center gap-2">
         {post._count.comments > 1 && (
-          <p className="cursor-pointer text-sm text-gray-600 hover:underline dark:text-gray-400">
+          <Link
+            to={`/post/${post.id}`}
+            className="cursor-pointer text-sm text-gray-600 hover:underline dark:text-gray-400"
+          >
             View all {post._count.comments} comments
-          </p>
+          </Link>
         )}
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { LocalStorageKeys } from "@/config/constants";
 import { Navigate, useLocation } from "react-router-dom";
 
 export default function ProtectedRoute({
@@ -7,7 +8,9 @@ export default function ProtectedRoute({
 }) {
   const { pathname } = useLocation();
 
-  const authenticated = !!localStorage.getItem("authToken");
+  const authenticated =
+    !!localStorage.getItem(LocalStorageKeys.accessToken) &&
+    !!localStorage.getItem(LocalStorageKeys.refreshToken);
   if (authenticated) {
     return <>{children}</>;
   }
