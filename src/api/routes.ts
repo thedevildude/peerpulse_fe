@@ -1,4 +1,5 @@
 import { CommentUserAssignedModel } from "@/components/comments/models";
+import { PostAssignedModel } from "@/components/posts/models";
 import { UserModel } from "@/components/users/models";
 import { pollFormSchema, postFormSchema } from "@/validation/post.validation";
 import { z } from "zod";
@@ -76,6 +77,17 @@ const routes = {
     TRes:
       Type<z.infer<typeof postFormSchema>[]>() ||
       Type<z.infer<typeof pollFormSchema>[]>(),
+  },
+  getPostById: {
+    path: "/api/v1/post/",
+    method: "GET",
+    TRes: Type<PostAssignedModel>(),
+  },
+  likePost: {
+    path: "/api/v1/post/like",
+    method: "POST",
+    TRes: Type<string>(),
+    TBody: Type<{ postId: string }>(),
   },
   createComment: {
     path: "/api/v1/comment/create",

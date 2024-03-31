@@ -11,7 +11,11 @@ import { CommentUserAssignedModel } from "@/components/comments/models";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const PostCard = (post: PostAssignedModel) => {
+const PostCard = (props: {
+  post: PostAssignedModel;
+  isIndividual?: boolean;
+}) => {
+  const { post } = props;
   const [comments, setComments] = useState<CommentUserAssignedModel[]>(
     post.comments,
   );
@@ -116,7 +120,7 @@ const PostCard = (post: PostAssignedModel) => {
         <CommentCard key={index} {...comment} />
       ))}
       <div className="flex items-center gap-2">
-        {post._count.comments > 1 && (
+        {post.comments.length === 1 && post._count.comments > 1 && (
           <Link
             to={`/post/${post.id}`}
             className="cursor-pointer text-sm text-gray-600 hover:underline dark:text-gray-400"

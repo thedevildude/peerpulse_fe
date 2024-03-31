@@ -35,7 +35,7 @@ const Posts = () => {
         posts.map((post, index) => (
           <div key={index} className="bg-gray-200">
             {post.PostType === "POST" ? (
-              <PostCard {...post} />
+              <PostCard post={post} isIndividual={false} />
             ) : (
               <PollCard {...post} />
             )}
